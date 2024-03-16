@@ -1,0 +1,49 @@
+import pathlib
+import random
+from colorama import Back, Fore, Style
+
+WORDLIST = pathlib.Path("wordlist.txt")
+words = [
+  word.lower()
+  for word in WORDLIST.read_text(encoding="utf-8").strip().split("\n")
+]
+secret_word = random.choice(words)
+guessed_words = []
+image = ['_','_','_','_','_']
+guess = input("Guess the secret 5 letter word, you have 6 attempts: ")
+guess = guess.lower()
+x=1
+while guess != secret_word and x<6:
+  letters = list(secret_word)
+correct_letters = []
+  correct_position = []
+  incorrect_position = []
+  for letter in guess:
+    if letter in letters:
+      correct_letters.append(letter)
+  for i in range(len(secret_word)):
+    if guess[i] == secret_word[i]:
+      correct_position.append(guess[i])
+  for letter in guess:
+    if letter in correct_letters and letter not in correct_position:
+      incorrect_position.append(letter)
+  
+  if guess in guessed_words:
+   guess = input("You've already guessed this word, guess a different word: ")
+  else:
+    guessed_words.append(guess)
+for i in range(len(secret_word)):
+      if guess[i] == secret_word[i]:
+        print(Back.LIGHTGREEN_EX + guess[i] + Style.RESET_ALL, end = " ")
+        letters.remove(guess[i])
+      elif guess[i] in incorrect_position and guess[i] in letters:
+         print(Back.LIGHTYELLOW_EX + guess[i] + Style.RESET_ALL, end = " ")
+         letters.remove(guess[i])
+      else:
+        print(guess[i], end = " ")
+guess = input(Style.RESET_ALL + "Guess again: ")
+    x+=1
+if guess.lower() == secret_word:
+  print("You guessed the word!")
+else:
+  print(f"Sorry you ran out of guesses, the secret word was: {secret_word}")
