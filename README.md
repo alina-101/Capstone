@@ -2,8 +2,11 @@
 This is a Wordle clone.
 
 Start by guessing a five letter word.
+
 You have 6 attempts
-You cannot guess a word that you have already guessed
+
+You cannot guess a word that you have already guessed.
+
 Like wordle:
 - any correct letters in the correct position will be highlighted in green
 - any correct letter in the incorrect position will be highlighted in yellow
